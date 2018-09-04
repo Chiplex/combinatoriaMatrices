@@ -1,0 +1,43 @@
+function [nroCombinaciones nroElementos, nroConjuntos]  = combvector2(min,max)
+try
+    pruebaConcatenacion = [min; max];
+    for i = 1:length(max)
+        if(min(i)>max(i))
+            ME = MException('MATLAB:UndefinedFunction','Los valores de los indices no son los correctos');
+            throw(ME);
+        end
+    end
+    
+    [fila columna] = size(max);
+    nroCombinaciones = 1;
+    for j = 1:columna
+        nroCombinaciones = nroCombinaciones*(abs(max(j)-min(j))+1);        
+    end
+    
+    nroCombinacionesIndependientes = 1;
+    for k = 1:columna
+        indMin = min(k)
+        indMax = max(k)
+        
+        for l=1:length(indMin)
+            nroCombinacionesIndependientes = nroCombinacionesIndependientes*(abs(indMax(l)-indMin(l))+1);  
+        end
+        nroElementos(i) = nroCombinacionesIndependientes
+        nroConjuntos(i) = (nroCombinaciones/nroElementos(i))
+        nroCombinacionesIndependientes = 1
+    end
+catch ME
+    if (strcmp(ME.identifier,'MATLAB:catenate:dimensionMismatch'))
+        msg = ['Dimension mismatch occurred: First argument has ', ...
+            num2str(size(min,2)),' columns while second has ', ...
+            num2str(size(max,2)),' columns.'];
+        causeException = MException('MATLAB:myCode:dimensions',msg);
+        ME = addCause(ME,causeException);
+    end
+    if (strcmp(ME.identifier,'MATLAB:UndefinedFunction'))
+        msg = ['Los valores de los indices no son los correctos: un valor del indice del primer argumento supera al segundo'];
+        causeException = MException('MATLAB:UndefinedFunction',msg);
+        ME = addCause(ME,causeException);
+    end
+    rethrow(ME)
+end
