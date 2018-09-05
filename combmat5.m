@@ -28,8 +28,7 @@ function [mat] = combmat5(min, max)
             end
             % se toma el valor del indice de la siguiente columna
             bk(i) = min(i);            
-        end
-        temp
+        end        
         % se concatena en la matriz correspondiente
         mat = [mat, temp];
         
@@ -39,5 +38,5 @@ function [mat] = combmat5(min, max)
         %aqui habria que guardar los vectores y ordenarlo
     end
     % Se busca las filas únicas
-    mat = unique(mat,'rows');
+%     mat = unique(mat,'rows');
 end
