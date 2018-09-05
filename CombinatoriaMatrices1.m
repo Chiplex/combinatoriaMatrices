@@ -1,4 +1,4 @@
-function matrizCombianda = combmat(min, max)
+function matrizCombinada = CombinatoriaMatrices1(min, max)
     try
         %Pruebas para evitar errores
         pruebaConcatenacion = [min; max];
@@ -9,15 +9,15 @@ function matrizCombianda = combmat(min, max)
             end
         end
 
-        matrizCombianda = [];
+        matrizCombinada = [];
         [nroFilas nroColumnas] = size(min);
         for i=1:nroColumnas
             while min(i) < max(i)
-                matrizCombianda = [matrizCombianda; min];
+                matrizCombinada = [matrizCombinada; min];
                 min(i) = min(i)+ 1;
             end
         end
-        matrizCombianda = [matrizCombianda; min];
+        matrizCombinada = [matrizCombinada; min];
 
     catch ME
         if (strcmp(ME.identifier,'MATLAB:catenate:dimensionMismatch'))

@@ -1,4 +1,4 @@
-function [mat] = combmat3(min, max)
+function [matrizCombinada] = CombinatoriaMatrices4(min, max)
     try
         %Pruebas para evitar errores
         pruebaConcatenacion = [min; max];
@@ -9,22 +9,29 @@ function [mat] = combmat3(min, max)
             end
         end
         
-        [nroFilas, nroColumnas] = size(max)
-        [nroCombinaciones, nroElementos, nroConjuntos] = combvector2(min, max)
-        bk = min;
-        tubo=[];
-        mat=[];
+        bk = min;        
+        [filas, columnas] = size(max); 
+        [nroCombinaciones, nroElementos, nroConjuntos]
+        nroCombinaciones = CombMatPropiedades (min, max)        
+        matrizCombinada = [;];
+        temp = [;];
         
-        for i=1:nroColumnas            
-            for j=1:nroElementos(i)
-                for k=1:nroConjuntos(i)
-                    tubo = [tubo;bk(i)];
-                end
-                bk(i) = bk(i) + 1;
-            end            
-            mat = [mat,tubo];
-            tubo = [];
-        end     
+        for i=1:columnas
+            nroElementos(i) = combvector(min(i),max(i));
+            nroConjuntos(i) = (nroCombinaciones/combvector(min(i),max(i)));
+        end
+        
+        for i=1:columnas            
+            for j = 1:nroConjuntos(i)                
+                for k = 1:nroElementos(i)                    
+                    temp = [temp; bk(i)];                    
+                    bk(i) = bk(i) + 1;
+                end                
+                bk(i) = min(i);            
+            end
+            matrizCombinada = [matrizCombinada, temp];
+            temp = [];
+        end        
     catch ME
         if (strcmp(ME.identifier,'MATLAB:catenate:dimensionMismatch'))
             msg = ['Dimension mismatch occurred: First argument has ', ...
@@ -40,5 +47,5 @@ function [mat] = combmat3(min, max)
             ME = addCause(ME,causeException);
         end
         rethrow(ME)
-    end
+    end    
 end

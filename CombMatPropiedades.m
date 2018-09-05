@@ -1,4 +1,4 @@
-function [nroCombinaciones, nroElementos, nroConjuntos]  = combvector2(min,max)
+function [nroCombinaciones, nroElementos, nroConjuntos]  = CombMatPropiedades(min,max)
 try
     %Pruebas para evitar errores
     pruebaConcatenacion = [min; max];
