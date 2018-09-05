@@ -10,13 +10,13 @@ try
     end
     
     matrizCombinada = [];
-    [fila columna] = size(min);    
-    while columna ~= 0        
-        while min(columna) < max(columna)
+    [nroFilas nroColumnas] = size(min);    
+    while nroColumnas ~= 0        
+        while min(nroColumnas) < max(nroColumnas)
             matrizCombinada = [matrizCombinada; min];
-            min(columna) = min(columna)+ 1;
+            min(nroColumnas) = min(nroColumnas)+ 1;
         end
-        columna = columna - 1;        
+        nroColumnas = nroColumnas - 1;        
     end
     matrizCombinada = [matrizCombinada; max];
     

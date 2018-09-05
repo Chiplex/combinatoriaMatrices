@@ -10,9 +10,9 @@ function matrizCombianda = combmat(min, max)
         end
 
         matrizCombianda = [];
-        [fila columna] = size(min);
-        for i=1:columna
-            while ~(min(i) >= max(i))
+        [nroFilas nroColumnas] = size(min);
+        for i=1:nroColumnas
+            while min(i) < max(i)
                 matrizCombianda = [matrizCombianda; min];
                 min(i) = min(i)+ 1;
             end
