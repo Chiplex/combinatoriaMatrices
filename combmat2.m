@@ -1,14 +1,40 @@
-function [mat contador] = combmat2(min,max)
-cambio = 0;
-contador = 0;
-mat = [];
-creado = min;
-n = length(max);
-    while ~(n<1)    
-        for i = min(n): max(n)
-            creado(n) = i;
-            mat = [mat; creado];
+function matrizCombinada = combmat2(min,max)
+try
+    %Pruebas para evitar errores
+    pruebaConcatenacion = [min; max];
+    for i = 1:length(max)
+        if(min(i)>max(i))
+            ME = MException('MATLAB:UndefinedFunction','Los valores de los indices no son los correctos');
+            throw(ME);
         end
-        n = n-1;
     end
+    
+    matrizCombinada = [];
+    [fila columna] = size(min);    
+    while columna ~= 0        
+        while min(columna) < max(columna)
+            matrizCombinada = [matrizCombinada; min];
+            min(columna) = min(columna)+ 1;
+        end
+        columna = columna - 1;        
+    end
+    matrizCombinada = [matrizCombinada; max];
+    
+catch ME
+    if (strcmp(ME.identifier,'MATLAB:catenate:dimensionMismatch'))
+        msg = ['Dimension mismatch occurred: First argument has ', ...
+            num2str(size(min,2)),' columns while second has ', ...
+            num2str(size(max,2)),' columns.'];
+        causeException = MException('MATLAB:myCode:dimensions',msg);
+        ME = addCause(ME,causeException);
+    end
+    % Se muestra este error cuando un valor del indice min supera al max
+    if (strcmp(ME.identifier,'MATLAB:UndefinedFunction'))
+        msg = ['Los valores de los indices no son los correctos: un valor del indice del primer argumento supera al segundo'];
+        causeException = MException('MATLAB:UndefinedFunction',msg);
+        ME = addCause(ME,causeException);
+    end
+    rethrow(ME)
 end
+    
+    
