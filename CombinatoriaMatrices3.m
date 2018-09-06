@@ -9,8 +9,8 @@ function [matrizCombinada] = CombinatoriaMatrices3(min, max)
             end
         end
         
-        [nroFilas, nroColumnas] = size(max)
-        [nroCombinaciones, nroElementos, nroConjuntos] = CombMatPropiedades(min, max)
+        [nroFilas, nroColumnas] = size(max);
+        [nroCombinaciones, nroElementos, nroConjuntos] = CombMatPropiedades(min, max);
         bk = min;
         tubo = [];
         matrizCombinada = [];

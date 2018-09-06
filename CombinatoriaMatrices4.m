@@ -10,7 +10,7 @@ function [matrizCombinada] = CombinatoriaMatrices4(min, max)
         end
         
         [nroFilas, nroColumnas] = size(max); 
-        [nroCombinaciones, nroElementos, nroConjuntos] = CombMatPropiedades (min, max)        
+        [nroCombinaciones, nroElementos, nroConjuntos] = CombMatPropiedades (min, max);
         bk = min;
         tubo = [];
         matrizCombinada = [];
