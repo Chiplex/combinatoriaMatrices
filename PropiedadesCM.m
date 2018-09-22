@@ -1,11 +1,9 @@
-function [nroCombinaciones, nroElementos, nroConjuntos]  = CombMatPropiedades(min,max)
-try
-    %Pruebas para evitar errores
-    pruebaConcatenacion = [min; max];
-    for i = 1:length(max)
+function [nroCombinaciones, nroElementos, nroConjuntos]  = PropiedadesCM(Matriz)
+    min = Matriz(1,:);
+    max = Matriz(end,:);
+    for i = 1:length(Matriz)
         if(min(i)>max(i))
-            ME = MException('MATLAB:UndefinedFunction','Los valores de los indices no son los correctos');
-            throw(ME);
+            disp('Los valores de los indices no son los correctos: un valor del indice de la primer fila supera al segundo');            
         end
     end
     
@@ -33,19 +31,4 @@ try
         % Se reinicializa para ir con el siguiente elemento del índice
         nroCombinacionesIndependientes = 1;
     end
-catch ME
-    if (strcmp(ME.identifier,'MATLAB:catenate:dimensionMismatch'))
-        msg = ['Dimension mismatch occurred: First argument has ', ...
-            num2str(size(min,2)),' columns while second has ', ...
-            num2str(size(max,2)),' columns.'];
-        causeException = MException('MATLAB:myCode:dimensions',msg);
-        ME = addCause(ME,causeException);
-    end
-    % Se muestra este error cuando un valor del indice min supera al max
-    if (strcmp(ME.identifier,'MATLAB:UndefinedFunction'))
-        msg = ['Los valores de los indices no son los correctos: un valor del indice del primer argumento supera al segundo'];
-        causeException = MException('MATLAB:UndefinedFunction',msg);
-        ME = addCause(ME,causeException);
-    end
-    rethrow(ME)
 end

@@ -1,8 +1,8 @@
-function resultado = MatrizCombinada(min, max)
-resultado = min;
-ultimaMatriz = [];
-    while ~isequal(resultado(end,:),max)        
-        ultimaMatriz = FuncionRecursiva(resultado(end,:), max)
-        resultado = [ultimaMatriz, ultimaMatriz]
-    end
+function resultado = MatrizCombinada(matriz)
+lingote = [NaN NaN NaN NaN];
+while lingote(end,:) ~= matriz(end,:)
+    ultimaMatriz = CombinatoriaMatrices6(matriz)
+    lingote = [lingote; ultimaMatriz]
+end
+resultado = lingote;
 end
