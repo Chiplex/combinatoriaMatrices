@@ -1,7 +1,7 @@
 function matrizCombinada = FusionCM2(Matriz,Todos)
     min = Matriz(1,:);
     max = Matriz(end,:);
-    for i = 1:length(Matriz)
+    for i = 1:size(Matriz,2)
         if(min(i)>max(i))
             disp('Los valores de los indices no son los correctos: un valor del indice del primer argumento supera al segundo');            
         end
